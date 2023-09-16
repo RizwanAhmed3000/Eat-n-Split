@@ -46,7 +46,7 @@ function App() {
         <div className="cards">
           {
             friendsList.map((friend) => (
-              <FriendsCard name={friend.name} imageUrl={friend.imageUrl} friendMoney={friend.friendMoney} setSpliteState={setSpliteState} />
+              <FriendsCard name={friend.name} imageUrl={friend.imageUrl} friendMoney={friend.friendMoney} setSpliteState={setSpliteState} setUser={setUser} friend= {friend}/>
             ))
           }
           <button className="selectBtn" onClick={() => { setAddFriendBox(true) }}>Add Friend</button>
@@ -55,7 +55,7 @@ function App() {
           }
         </div>
         {
-          splitState && <EatAndSplit setSpliteState={setSpliteState}/>
+          splitState && <EatAndSplit setSpliteState={setSpliteState} friend={user} />
         }
       </div>
     </div>
@@ -65,7 +65,7 @@ function App() {
 
 // -------------------------------Friends card component--------------------------------------------//
 
-function FriendsCard({ name, imageUrl, friendMoney, setSpliteState }) {
+function FriendsCard({ name, imageUrl, friendMoney, setSpliteState, setUser, friend }) {
   return (
     <div className="cardContainer">
       <img src={imageUrl} alt="" className="friendImage" />
@@ -77,6 +77,7 @@ function FriendsCard({ name, imageUrl, friendMoney, setSpliteState }) {
       </div>
       <button className="selectBtn" onClick={() => {
         setSpliteState(true)
+        setUser(friend)
       }}>Select</button>
     </div>
   )
@@ -115,10 +116,11 @@ function AddFriendBox({ setAddFriendBox, addFriendHandler }) {
 
 // -------------------------------eat split box component--------------------------------------------//
 
-function EatAndSplit({ setSpliteState }) {
+function EatAndSplit({ setSpliteState, friend }) {
+  // console.log(friend);
   return (
     <div className="eatContainer">
-      <h1 style={{ textAlign: "center" }}>Split the bill with friend</h1>
+      <h1 style={{ textAlign: "center" }}>Split the bill with {friend.name}</h1>
       <div className="flex">
         <h2>Bill value:</h2>
         <input type="number" className="addFriendInput" />
@@ -130,6 +132,13 @@ function EatAndSplit({ setSpliteState }) {
       <div className="flex">
         <h2>Friends expense:</h2>
         <input type="number" className="addFriendInput" />
+      </div>
+      <div className="flex">
+        <h2>Whos paying:</h2>
+        <select name="" id="" className="select">
+          <option value="">You</option>
+          <option value="">{friend.name}</option>
+        </select>
       </div>
       <div className="flex">
         <button className="selectBtn" style={{ backgroundColor: "white" }} onClick={() => {
