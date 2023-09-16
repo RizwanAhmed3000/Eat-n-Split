@@ -24,7 +24,7 @@ function App() {
   const [addFriendBox, setAddFriendBox] = useState(false)
 
   function addFriendHandler(name, imageUrl) {
-    const addFriendList = [...friendsData];
+    const addFriendList = [...friendsList];
     addFriendList.push({
       name,
       imageUrl,
@@ -49,7 +49,7 @@ function App() {
           }
           <button className="selectBtn" onClick={() => { setAddFriendBox(true) }}>Add Friend</button>
           {
-            addFriendBox && <AddFriendBox />
+            addFriendBox && <AddFriendBox setAddFriendBox={setAddFriendBox} addFriendHandler={addFriendHandler} />
           }
         </div>
       </div>
@@ -73,10 +73,31 @@ function FriendsCard({ name, imageUrl, friendMoney }) {
   )
 }
 
-function AddFriendBox () {
+function AddFriendBox({ setAddFriendBox, addFriendHandler }) {
+  const [name, setName] = useState("")
+  const [imageUrl, setImageUrl] = useState("")
   return (
-    <div>
-      
+    <div className="cardContainer" style={{ display: "block", backgroundColor: "orange" }}>
+      <div style={{ margin: "8px 0px" }}>
+        <p style={{ padding: "3px 0px" }}>Friend name</p>
+        <input type="text" placeholder="Name" className="addFriendInput" onChange={(e) => setName(e.target.value)} value={name} />
+      </div>
+      <div style={{ margin: "8px 0px" }}>
+        <p style={{ padding: "3px 0px" }}>Image URL</p>
+        <input type="text" placeholder="Enter URL" className="addFriendInput" onChange={(e) => setImageUrl(e.target.value)} value={imageUrl} />
+      </div>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+
+        <button className="selectBtn" style={{ backgroundColor: "white" }} onClick={() => setAddFriendBox(false)}>Close</button>
+        <button className="selectBtn" style={{ backgroundColor: "white" }} onClick={() => {
+          addFriendHandler(name, imageUrl)
+          setName("")
+          setImageUrl("")
+          setAddFriendBox(false)
+        }}>Add</button>
+
+
+      </div>
     </div>
   )
 }
