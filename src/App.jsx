@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./app.css"
 function App() {
 
-  const firendsData = [
+  const friendsData = [
     {
       name: "Rizwan",
       imageUrl: "https://www.aquasafemine.com/wp-content/uploads/2018/06/dummy-man-570x570.png",
@@ -20,7 +20,18 @@ function App() {
     },
   ]
 
-  const [firendsList, setFriendsList] = useState(firendsData)
+  const [friendsList, setFriendsList] = useState(friendsData)
+  const [addFriendBox, setAddFriendBox] = useState(false)
+
+  function addFriendHandler(name, imageUrl) {
+    const addFriendList = [...friendsData];
+    addFriendList.push({
+      name,
+      imageUrl,
+      friendMoney: 0
+    })
+    setFriendsList(addFriendList)
+  }
 
 
   return (
@@ -32,9 +43,13 @@ function App() {
       <div className="container">
         <div className="cards">
           {
-            firendsList.map((friend) => (
-              <FriendsCard name= {friend.name} imageUrl= {friend.imageUrl} friendMoney= {friend.friendMoney}/>
+            friendsList.map((friend) => (
+              <FriendsCard name={friend.name} imageUrl={friend.imageUrl} friendMoney={friend.friendMoney} />
             ))
+          }
+          <button className="selectBtn" onClick={() => { setAddFriendBox(true) }}>Add Friend</button>
+          {
+            addFriendBox && <AddFriendBox />
           }
         </div>
       </div>
@@ -42,17 +57,26 @@ function App() {
   );
 }
 
-function FriendsCard({name, imageUrl, friendMoney}) {
+
+function FriendsCard({ name, imageUrl, friendMoney }) {
   return (
     <div className="cardContainer">
       <img src={imageUrl} alt="" className="friendImage" />
       <div className="textArea">
         <h3>{name}</h3>
         {
-          friendMoney  > 0 ? <p>{name} owes you {friendMoney}</p> : friendMoney < 0 ? <p>you owes {name} {Math.abs(friendMoney)}</p> : <p>we are even</p>
+          friendMoney > 0 ? <p>{name} owes you {friendMoney}</p> : friendMoney < 0 ? <p>you owes {name} {Math.abs(friendMoney)}</p> : <p>we are even</p>
         }
       </div>
       <button className="selectBtn">Select</button>
+    </div>
+  )
+}
+
+function AddFriendBox () {
+  return (
+    <div>
+      
     </div>
   )
 }

@@ -19,7 +19,7 @@
     color: orange;
 }
 
-.container{
+.container {
     margin: 20px 0px;
     padding: 15px;
     width: 100%;
@@ -29,13 +29,13 @@
     flex-wrap: wrap;
 }
 
-.cards{
+.cards {
     width: 500px;
     display: flex;
     flex-direction: column;
 }
 
-.cardContainer{
+.cardContainer {
     margin: 10px 0px;
     display: flex;
     justify-content: space-between;
@@ -47,18 +47,19 @@
     background-color: white;
 }
 
-.friendImage{
+.friendImage {
     width: 70px;
     object-fit: contain;
     margin: 0px 10px;
 }
 
-.textArea{
+.textArea {
     width: 100%;
     margin: 0px 5px;
+    font-family: 'Libre Baskerville', serif;
 }
 
-.selectBtn{
+.selectBtn {
     padding: 8px 20px;
     background-color: orange;
     border-radius: 5px;
@@ -69,6 +70,6 @@
     transition: filter 250ms ease;
 }
 
-.selectBtn:hover{
+.selectBtn:hover {
     filter: invert(100%);
 }
