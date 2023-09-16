@@ -22,6 +22,8 @@ function App() {
 
   const [friendsList, setFriendsList] = useState(friendsData)
   const [addFriendBox, setAddFriendBox] = useState(false)
+  const [splitState, setSpliteState] = useState(false)
+  const [user, setUser] = useState({})
 
   function addFriendHandler(name, imageUrl) {
     const addFriendList = [...friendsList];
@@ -44,7 +46,7 @@ function App() {
         <div className="cards">
           {
             friendsList.map((friend) => (
-              <FriendsCard name={friend.name} imageUrl={friend.imageUrl} friendMoney={friend.friendMoney} />
+              <FriendsCard name={friend.name} imageUrl={friend.imageUrl} friendMoney={friend.friendMoney} setSpliteState={setSpliteState} />
             ))
           }
           <button className="selectBtn" onClick={() => { setAddFriendBox(true) }}>Add Friend</button>
@@ -52,13 +54,18 @@ function App() {
             addFriendBox && <AddFriendBox setAddFriendBox={setAddFriendBox} addFriendHandler={addFriendHandler} />
           }
         </div>
+        {
+          splitState && <EatAndSplit setSpliteState={setSpliteState}/>
+        }
       </div>
     </div>
   );
 }
+//--------------------------------------------xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx--------------------------------------------------//
 
+// -------------------------------Friends card component--------------------------------------------//
 
-function FriendsCard({ name, imageUrl, friendMoney }) {
+function FriendsCard({ name, imageUrl, friendMoney, setSpliteState }) {
   return (
     <div className="cardContainer">
       <img src={imageUrl} alt="" className="friendImage" />
@@ -68,10 +75,14 @@ function FriendsCard({ name, imageUrl, friendMoney }) {
           friendMoney > 0 ? <p>{name} owes you {friendMoney}</p> : friendMoney < 0 ? <p>you owes {name} {Math.abs(friendMoney)}</p> : <p>we are even</p>
         }
       </div>
-      <button className="selectBtn">Select</button>
+      <button className="selectBtn" onClick={() => {
+        setSpliteState(true)
+      }}>Select</button>
     </div>
   )
 }
+
+// -------------------------------add friend box component--------------------------------------------//
 
 function AddFriendBox({ setAddFriendBox, addFriendHandler }) {
   const [name, setName] = useState("")
@@ -102,5 +113,32 @@ function AddFriendBox({ setAddFriendBox, addFriendHandler }) {
   )
 }
 
+// -------------------------------eat split box component--------------------------------------------//
+
+function EatAndSplit({ setSpliteState }) {
+  return (
+    <div className="eatContainer">
+      <h1 style={{ textAlign: "center" }}>Split the bill with friend</h1>
+      <div className="flex">
+        <h2>Bill value:</h2>
+        <input type="number" className="addFriendInput" />
+      </div>
+      <div className="flex">
+        <h2>Your expense:</h2>
+        <input type="number" className="addFriendInput" />
+      </div>
+      <div className="flex">
+        <h2>Friends expense:</h2>
+        <input type="number" className="addFriendInput" />
+      </div>
+      <div className="flex">
+        <button className="selectBtn" style={{ backgroundColor: "white" }} onClick={() => {
+          setSpliteState(false)
+        }}>Close</button>
+        <button className="selectBtn" style={{ backgroundColor: "white" }}>Split</button>
+      </div>
+    </div>
+  )
+}
 
 export default App;
