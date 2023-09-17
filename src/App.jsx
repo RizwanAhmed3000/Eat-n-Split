@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./app.css"
+import "./App.css";
 function App() {
 
   const friendsData = [
@@ -46,7 +46,7 @@ function App() {
         <div className="cards">
           {
             friendsList.map((friend) => (
-              <FriendsCard name={friend.name} imageUrl={friend.imageUrl} friendMoney={friend.friendMoney} setSpliteState={setSpliteState} setUser={setUser} friend= {friend}/>
+              <FriendsCard name={friend.name} imageUrl={friend.imageUrl} friendMoney={friend.friendMoney} setSpliteState={setSpliteState} setUser={setUser} friend={friend} />
             ))
           }
           <button className="selectBtn" onClick={() => { setAddFriendBox(true) }}>Add Friend</button>
